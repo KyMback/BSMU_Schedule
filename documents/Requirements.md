@@ -16,7 +16,7 @@
 
 ### 2.2. Интерфейс пользователя
 
-Интерфейс пользователя представлен [мокапами](https://github.com/KyMback/BSMU_Schedule/tree/master/mockups).
+Интерфейс пользователя представлен [мокапами](https://github.com/KyMback/BSMU_Schedule/tree/master/documents/mockups).
 
 ### 2.3. Характеристики пользователей
 

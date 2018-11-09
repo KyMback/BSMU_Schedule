@@ -38,7 +38,7 @@
  1. Группа, введенная пользователем, не найдена, приложение выдает сообщение об ошибке
  2. Приложение перенаправляет пользователя на основное расписание без изменений.  
 ##### 1.2.1.2. Диаграмма активности
-![activitydiagram](diagrams/Activity/ActivityDiagram.png)
+![activitydiagram](https://github.com/KyMback/BSMU_Schedule/blob/master/diagrams/Activity/ActivityDiagram.png)
 
 ## 2. Диаграммы последовательности
 ### 2.1. Загрузка расписания

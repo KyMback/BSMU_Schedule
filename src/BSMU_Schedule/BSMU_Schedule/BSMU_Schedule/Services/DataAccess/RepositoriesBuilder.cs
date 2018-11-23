@@ -5,7 +5,7 @@ using BSMU_Schedule.Interfaces.DataAccess.Repositories;
 using BSMU_Schedule.Interfaces.Parameters;
 using BSMU_Schedule.Services.DataAccess.Repositories;
 
-namespace BSMU_Schedule.Services
+namespace BSMU_Schedule.Services.DataAccess
 {
     public static class RepositoriesBuilder
     {

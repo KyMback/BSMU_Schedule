@@ -7,7 +7,7 @@ using BSMU_Schedule.Commands;
 using BSMU_Schedule.Entities;
 using BSMU_Schedule.Enums;
 using BSMU_Schedule.Interfaces.Parameters;
-using BSMU_Schedule.Services;
+using BSMU_Schedule.Services.DataAccess;
 
 namespace BSMU_Schedule.ViewModels
 {

@@ -68,6 +68,22 @@ namespace BSMU_Schedule.ViewModels
             }
         }
 
+        private bool _isValidationErrorHappened;
+        public bool IsValidationErrorHappened
+        {
+            get => _isValidationErrorHappened;
+            set
+            {
+                if (_isValidationErrorHappened == value)
+                {
+                    return;
+                }
+
+                _isValidationErrorHappened = value;
+                OnPropertyChanged(nameof(IsValidationErrorHappened));
+            }
+        }
+
         public void DownloadSchedulePreviewOpen()
         {
             ChangeStateOfDownloading(true);
@@ -81,7 +97,12 @@ namespace BSMU_Schedule.ViewModels
 
         public void DownloadGroup()
         {
+            if (!int.TryParse(GroupNumber, out int result))
+            {
+                IsValidationErrorHappened = true;
+            }
 
+            IsValidationErrorHappened = false;
         }
         
         protected virtual void OnPropertyChanged(string propertyName = null)

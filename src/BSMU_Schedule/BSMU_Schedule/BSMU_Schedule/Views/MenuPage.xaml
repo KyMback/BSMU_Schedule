@@ -21,9 +21,15 @@
                         <ColumnDefinition Width="9*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Entry Grid.Column="0" 
-                           IsVisible="{Binding IsGroupFieldVisible}"
-                           Text="{Binding GroupNumber, Mode=TwoWay}"/>
+                    <StackLayout Grid.Column="0" >
+                        <Entry IsVisible="{Binding IsGroupFieldVisible}"
+                               Text="{Binding GroupNumber, Mode=TwoWay}"/>
+                        <Label Text="Некорректно введен номер группы"
+                               IsVisible="{Binding IsValidationErrorHappened}"
+                               TextColor="Red"
+                               FontSize="5"/>
+                    </StackLayout>
+
                     <Button Grid.Column="1"
                             Text=">"
                             Command="{Binding DownloadGroupCommand}"></Button>

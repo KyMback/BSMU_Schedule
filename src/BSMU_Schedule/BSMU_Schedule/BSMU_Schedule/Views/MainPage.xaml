@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BSMU_Schedule.Views"
+             x:Class="BSMU_Schedule.Views.MainPage"
+             xmlns:viewModels="clr-namespace:BSMU_Schedule.ViewModels">
+
+    <ContentPage.BindingContext>
+        <viewModels:ScheduleViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid BackgroundColor="Bisque" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="12*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" BackgroundColor="DarkRed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="11*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Text="{Binding GroupNumber}"
+                   Grid.Column="1"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   FontAttributes="Bold"
+                   FontSize="20"></Label>
+            <Button Grid.Column="2" Text="Меню"/>
+        </Grid>
+
+        <ListView Grid.Row="1"
+                  BackgroundColor="PeachPuff"
+                  ItemsSource="{Binding Lessons}"
+                  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <StackLayout Spacing="-2">
+                                <Label Text="{Binding LessonsName}"></Label>
+                                <Label Text="{Binding TimeInterval}"></Label>
+                                <Label Text="{Binding Address}"></Label>
+                            </StackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Grid ColumnSpacing="-3" Grid.Row="2" BackgroundColor="DarkRed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Text="Пн" 
+                    Command="{Binding ChangeDayOfWeekCommand}"
+                    CommandParameter="{x:Static x:DayOfWeek.Monday}"/>
+            <Button Grid.Column="1" Text="Вт"
+                    Command="{Binding ChangeDayOfWeekCommand}"
+                    CommandParameter="{x:Static x:DayOfWeek.Tuesday}"/>
+            <Button Grid.Column="2" Text="Ср"
+                    Command="{Binding ChangeDayOfWeekCommand}"
+                    CommandParameter="{x:Static x:DayOfWeek.Wednesday}"/>
+            <Button Grid.Column="3" Text="Чт"
+                    Command="{Binding ChangeDayOfWeekCommand}"
+                    CommandParameter="{x:Static x:DayOfWeek.Thursday}"/>
+            <Button Grid.Column="4" Text="Пт"
+                    Command="{Binding ChangeDayOfWeekCommand}"
+                    CommandParameter="{x:Static x:DayOfWeek.Friday}"/>
+            <Button Grid.Column="5" Text="Сб"
+                    Command="{Binding ChangeDayOfWeekCommand}"
+                    CommandParameter="{x:Static x:DayOfWeek.Saturday}"/>
+            <Button Grid.Column="6" Text="Вс"
+                    Command="{Binding ChangeDayOfWeekCommand}"
+                    CommandParameter="{x:Static x:DayOfWeek.Sunday}"/>
+        </Grid>
+    </Grid>
+
+</ContentPage>

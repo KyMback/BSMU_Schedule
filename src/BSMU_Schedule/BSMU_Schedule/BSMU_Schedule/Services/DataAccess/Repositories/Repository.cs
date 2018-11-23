@@ -10,7 +10,7 @@ namespace BSMU_Schedule.Services.DataAccess.Repositories
 
         public Repository(RepositoryConfigurations<T> configurations)
         {
-            storageAdapter = StorageAdapterFactory.BuildAdapter<T>(configurations.StorageType, configurations);
+            storageAdapter = StorageAdapterBuilder.BuildAdapter<T>(configurations.StorageType, configurations);
         }
 
         public T Get()

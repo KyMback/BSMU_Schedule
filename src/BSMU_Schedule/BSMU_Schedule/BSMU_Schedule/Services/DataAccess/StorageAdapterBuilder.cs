@@ -6,7 +6,7 @@ using BSMU_Schedule.Services.DataAccess.StorageAdapters;
 
 namespace BSMU_Schedule.Services.DataAccess
 {
-    public static class StorageAdapterFactory
+    public static class StorageAdapterBuilder
     {
         public static IStorageAdapter<T> BuildAdapter<T>(StorageType storageType, IHasConnectionConfiguration configuration)
         {

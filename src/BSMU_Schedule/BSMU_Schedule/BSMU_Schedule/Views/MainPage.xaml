@@ -2,12 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:BSMU_Schedule.Views"
-             x:Class="BSMU_Schedule.Views.MainPage"
-             xmlns:viewModels="clr-namespace:BSMU_Schedule.ViewModels">
-
-    <ContentPage.BindingContext>
-        <viewModels:ScheduleViewModel />
-    </ContentPage.BindingContext>
+             x:Class="BSMU_Schedule.Views.MainPage">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -39,7 +34,8 @@
                    FontSize="20"></Label>
             <Button Grid.Column="2" 
                     Text="Меню"
-                    Style="{StaticResource CommonButtonsStyle}"/>
+                    Style="{StaticResource CommonButtonsStyle}"
+                    Command="{Binding OpenMenuPageCommand}"/>
         </Grid>
 
         <Grid Grid.Row="1" BackgroundColor="PeachPuff">

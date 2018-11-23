@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using BSMU_Schedule.ViewModels;
+using Xamarin.Forms;
 
 namespace BSMU_Schedule.Views
 {
@@ -7,6 +8,7 @@ namespace BSMU_Schedule.Views
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = new ScheduleViewModel(Navigation);
         }
     }
 }

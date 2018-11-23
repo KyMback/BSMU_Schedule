@@ -2,12 +2,15 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using BSMU_Schedule.Commands;
 using BSMU_Schedule.Entities;
 using BSMU_Schedule.Enums;
 using BSMU_Schedule.Interfaces.Parameters;
 using BSMU_Schedule.Services.DataAccess;
+using BSMU_Schedule.Views;
+using Xamarin.Forms;
 
 namespace BSMU_Schedule.ViewModels
 {
@@ -19,11 +22,18 @@ namespace BSMU_Schedule.ViewModels
 
         public ICommand ChangeDayOfWeekCommand { get; }
 
+        public ICommand OpenMenuPageCommand { get; }
+
+        public INavigation Navigation { get; set;}
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ScheduleViewModel()
+        public ScheduleViewModel(INavigation navigation)
         {
             ChangeDayOfWeekCommand = new ChangeDayOfWeekCommand(this);
+            OpenMenuPageCommand = new OpenMenuPageCommand(this);
+            Navigation = navigation;
+
             Lessons = new ObservableCollection<Lesson>();
             GroupNumber = 7301;
             DaySchedules = RepositoriesBuilder
@@ -109,6 +119,11 @@ namespace BSMU_Schedule.ViewModels
             {
                 Lessons.Add(day);
             }
+        }
+
+        public async Task OpenMenuPage()
+        {
+            await Navigation.PushModalAsync(new MenuPage());
         }
     }
 }

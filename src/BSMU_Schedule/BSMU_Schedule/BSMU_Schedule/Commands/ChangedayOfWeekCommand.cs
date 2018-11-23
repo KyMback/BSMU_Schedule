@@ -8,6 +8,8 @@ namespace BSMU_Schedule.Commands
     {
         public ScheduleViewModel ViewModel { get; set; }
 
+        public event EventHandler CanExecuteChanged;
+
         public ChangeDayOfWeekCommand(ScheduleViewModel viewModel)
         {
             ViewModel = viewModel;
@@ -22,7 +24,5 @@ namespace BSMU_Schedule.Commands
         {
             ViewModel.ChangeCurrentDayOfWeek((DayOfWeek)parameter);
         }
-
-        public event EventHandler CanExecuteChanged;
     }
 }

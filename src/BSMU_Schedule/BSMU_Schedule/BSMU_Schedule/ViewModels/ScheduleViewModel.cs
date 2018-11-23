@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -27,10 +26,12 @@ namespace BSMU_Schedule.ViewModels
             ChangeDayOfWeekCommand = new ChangeDayOfWeekCommand(this);
             Lessons = new ObservableCollection<Lesson>();
             GroupNumber = 7301;
-            DaySchedules = RepositoriesBuilder.GetRepository(new RepositoryConfigurations<Schedule>
-            {
-                StorageType = StorageType.XmlFileStorageType
-            }).Get().WeekSchedules.First();
+            DaySchedules = RepositoriesBuilder
+                .GetRepository(new RepositoryConfigurations<Schedule>(StorageType.XmlFileStorageType))
+                .Get()
+                .WeekSchedules
+                .First();
+
             ChangeCurrentDayOfWeek(DateTime.Now.DayOfWeek);
         }
 
@@ -40,11 +41,13 @@ namespace BSMU_Schedule.ViewModels
             get => _dayOfWeekRepresentation;
             set
             {
-                if (_dayOfWeekRepresentation != value)
+                if (_dayOfWeekRepresentation == value)
                 {
-                    _dayOfWeekRepresentation = value;
-                    OnPropertyChanged(nameof(DayOfWeekRepresentation));
+                    return;
                 }
+
+                _dayOfWeekRepresentation = value;
+                OnPropertyChanged(nameof(DayOfWeekRepresentation));
             }
         }
 
@@ -54,11 +57,13 @@ namespace BSMU_Schedule.ViewModels
             get => _groupNumber;
             set
             {
-                if (_groupNumber != value)
+                if (_groupNumber == value)
                 {
-                    _groupNumber = value;
-                    OnPropertyChanged(nameof(GroupNumber));
+                    return;
                 }
+
+                _groupNumber = value;
+                OnPropertyChanged(nameof(GroupNumber));
             }
         }
 
@@ -68,11 +73,13 @@ namespace BSMU_Schedule.ViewModels
             get => _lessons;
             set
             {
-                if (_lessons != value)
+                if (_lessons == value)
                 {
-                    _lessons = value;
-                    OnPropertyChanged(nameof(Lessons));
+                    return;
                 }
+
+                _lessons = value;
+                OnPropertyChanged(nameof(Lessons));
             }
         }
         
@@ -83,12 +90,20 @@ namespace BSMU_Schedule.ViewModels
 
         public void ChangeCurrentDayOfWeek(DayOfWeek dayOfWeek)
         {
-            Lessons.Clear();
             DayOfWeekRepresentation = dayOfWeek.ToString("G");
+
             if (!DaySchedules.DaySchedules.TryGetValue(dayOfWeek, out DaySchedule daySchedule))
             {
+                Lessons.Clear();
                 return;
             }
+
+            ChangeDaySchedule(daySchedule);
+        }
+
+        public void ChangeDaySchedule(DaySchedule daySchedule)
+        {
+            Lessons.Clear();
             CurrentDaySchedule = daySchedule;
             foreach (var day in CurrentDaySchedule.Lessons)
             {

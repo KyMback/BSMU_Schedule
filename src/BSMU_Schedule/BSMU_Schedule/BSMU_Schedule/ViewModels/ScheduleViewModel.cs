@@ -71,6 +71,20 @@ namespace BSMU_Schedule.ViewModels
             ChangeCurrentDayOfWeek(DateTime.Now.DayOfWeek);
         }
 
+        private string _dayOfWeekRepresentation;
+        public string DayOfWeekRepresentation
+        {
+            get => _dayOfWeekRepresentation;
+            set
+            {
+                if (_dayOfWeekRepresentation != value)
+                {
+                    _dayOfWeekRepresentation = value;
+                    OnPropertyChanged(nameof(DayOfWeekRepresentation));
+                }
+            }
+        }
+
         private int _groupNumber;
         public int GroupNumber
         {
@@ -107,6 +121,7 @@ namespace BSMU_Schedule.ViewModels
         public void ChangeCurrentDayOfWeek(DayOfWeek dayOfWeek)
         {
             Lessons.Clear();
+            DayOfWeekRepresentation = dayOfWeek.ToString("G");
             if (!DaySchedules.DaySchedules.TryGetValue(dayOfWeek, out DaySchedule daySchedule))
             {
                 return;

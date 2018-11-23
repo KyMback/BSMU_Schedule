@@ -9,7 +9,16 @@
         <viewModels:ScheduleViewModel />
     </ContentPage.BindingContext>
 
-    <Grid BackgroundColor="Bisque" RowSpacing="0">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CommonButtonsStyle"
+                   TargetType="Button">
+                <Setter Property="FontSize" Value="10" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid BackgroundColor="Black" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="12*"></RowDefinition>
@@ -28,30 +37,49 @@
                    VerticalTextAlignment="Center"
                    FontAttributes="Bold"
                    FontSize="20"></Label>
-            <Button Grid.Column="2" Text="Меню"/>
+            <Button Grid.Column="2" 
+                    Text="Меню"
+                    Style="{StaticResource CommonButtonsStyle}"/>
         </Grid>
 
-        <ListView Grid.Row="1"
-                  BackgroundColor="PeachPuff"
-                  ItemsSource="{Binding Lessons}"
-                  HasUnevenRows="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.View>
-                            <StackLayout Spacing="-2">
-                                <Label Text="{Binding LessonsName}"></Label>
-                                <Label Text="{Binding TimeInterval}"></Label>
-                                <Label Text="{Binding Address}"></Label>
-                            </StackLayout>
-                        </ViewCell.View>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-        <Grid ColumnSpacing="-3" Grid.Row="2" BackgroundColor="DarkRed">
+        <Grid Grid.Row="1" BackgroundColor="PeachPuff">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="3"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Column="1" Spacing="1" BackgroundColor="Black">
+                <Label Text="{Binding DayOfWeekRepresentation}"
+                       FontSize="25"
+                       FontAttributes="Italic"
+                       BackgroundColor="PeachPuff"/>
+                <ListView
+                    ItemsSource="{Binding Lessons}"
+                    HasUnevenRows="True"
+                    BackgroundColor="PeachPuff">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <StackLayout Spacing="-2">
+                                        <Label Text="{Binding LessonsName}"
+                                               FontAttributes="Bold"
+                                               FontSize="15"/>
+                                        <Label Text="{Binding TimeInterval}"/>
+                                        <Label Text="{Binding Address}"/>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </Grid>
+
+        <Grid ColumnSpacing="-3" Grid.Row="2"
+              BackgroundColor="DarkRed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -60,28 +88,36 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="3"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Text="Пн" 
+            <Button Grid.Column="1" Text="Пн" 
                     Command="{Binding ChangeDayOfWeekCommand}"
-                    CommandParameter="{x:Static x:DayOfWeek.Monday}"/>
-            <Button Grid.Column="1" Text="Вт"
+                    CommandParameter="{x:Static x:DayOfWeek.Monday}"
+                    Style="{StaticResource CommonButtonsStyle}"/>
+            <Button Grid.Column="2" Text="Вт"
                     Command="{Binding ChangeDayOfWeekCommand}"
-                    CommandParameter="{x:Static x:DayOfWeek.Tuesday}"/>
-            <Button Grid.Column="2" Text="Ср"
+                    CommandParameter="{x:Static x:DayOfWeek.Tuesday}"
+                    Style="{StaticResource CommonButtonsStyle}"/>
+            <Button Grid.Column="3" Text="Ср"
                     Command="{Binding ChangeDayOfWeekCommand}"
-                    CommandParameter="{x:Static x:DayOfWeek.Wednesday}"/>
-            <Button Grid.Column="3" Text="Чт"
+                    CommandParameter="{x:Static x:DayOfWeek.Wednesday}"
+                    Style="{StaticResource CommonButtonsStyle}"/>
+            <Button Grid.Column="4" Text="Чт"
                     Command="{Binding ChangeDayOfWeekCommand}"
-                    CommandParameter="{x:Static x:DayOfWeek.Thursday}"/>
-            <Button Grid.Column="4" Text="Пт"
+                    CommandParameter="{x:Static x:DayOfWeek.Thursday}"
+                    Style="{StaticResource CommonButtonsStyle}"/>
+            <Button Grid.Column="5" Text="Пт"
                     Command="{Binding ChangeDayOfWeekCommand}"
-                    CommandParameter="{x:Static x:DayOfWeek.Friday}"/>
-            <Button Grid.Column="5" Text="Сб"
+                    CommandParameter="{x:Static x:DayOfWeek.Friday}"
+                    Style="{StaticResource CommonButtonsStyle}"/>
+            <Button Grid.Column="6" Text="Сб"
                     Command="{Binding ChangeDayOfWeekCommand}"
-                    CommandParameter="{x:Static x:DayOfWeek.Saturday}"/>
-            <Button Grid.Column="6" Text="Вс"
+                    CommandParameter="{x:Static x:DayOfWeek.Saturday}"
+                    Style="{StaticResource CommonButtonsStyle}"/>
+            <Button Grid.Column="7" Text="Вс"
                     Command="{Binding ChangeDayOfWeekCommand}"
-                    CommandParameter="{x:Static x:DayOfWeek.Sunday}"/>
+                    CommandParameter="{x:Static x:DayOfWeek.Sunday}"
+                    Style="{StaticResource CommonButtonsStyle}"/>
         </Grid>
     </Grid>
 

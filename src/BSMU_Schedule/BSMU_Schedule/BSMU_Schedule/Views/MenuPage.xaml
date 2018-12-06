@@ -9,6 +9,14 @@
                 <RowDefinition Height="12*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
+            <StackLayout HeightRequest="80" VerticalOptions="Center" Grid.Row="1">
+                <ActivityIndicator IsRunning="{Binding IsThinking}"
+                                   IsVisible="{Binding IsThinking}"
+                                   HeightRequest="80"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="CenterAndExpand">
+                </ActivityIndicator>
+            </StackLayout>
             <Label BackgroundColor="DarkRed"
                    Grid.Row="0"/>
             <StackLayout Grid.Row="1">
@@ -27,9 +35,8 @@
                         <Label Text="Некорректно введен номер группы"
                                IsVisible="{Binding IsValidationErrorHappened}"
                                TextColor="Red"
-                               FontSize="5"/>
+                               FontSize="15"/>
                     </StackLayout>
-
                     <Button Grid.Column="1"
                             Text=">"
                             Command="{Binding DownloadGroupCommand}"></Button>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using BSMU_Schedule.ViewModels;
 
@@ -20,9 +21,9 @@ namespace BSMU_Schedule.Commands
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
-            ViewModel.DownloadGroup();
+            await ViewModel.DownloadGroup();
         }
     }
 }

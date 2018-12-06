@@ -35,7 +35,8 @@
             <Button Grid.Column="2" 
                     Text="Меню"
                     Style="{StaticResource CommonButtonsStyle}"
-                    Command="{Binding OpenMenuPageCommand}"/>
+                    Command="{Binding OpenMenuPageCommand}"
+                    IsEnabled="{Binding IsMenuButtonEnabled}"/>
         </Grid>
 
         <Grid Grid.Row="1" BackgroundColor="PeachPuff">

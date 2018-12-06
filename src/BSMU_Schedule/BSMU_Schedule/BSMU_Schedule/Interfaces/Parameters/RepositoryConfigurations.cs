@@ -5,17 +5,19 @@ namespace BSMU_Schedule.Interfaces.Parameters
 {
     public class RepositoryConfigurations<T>: IHasConnectionConfiguration
     {
+        public string ConnectionConfiguration { get; set; }
+
         public RepositoryConfigurations()
         {
         }
 
-        public RepositoryConfigurations(StorageType storageType)
+        public RepositoryConfigurations(StorageType storageType, string connectionConfiguration)
         {
             StorageType = storageType;
+            ConnectionConfiguration = connectionConfiguration;
         }
 
         public StorageType StorageType { get; set; }
 
-        public string ConnectionConfiguration { get; set; }
     }
 }

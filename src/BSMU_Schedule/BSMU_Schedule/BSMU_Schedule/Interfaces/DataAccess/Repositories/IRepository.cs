@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace BSMU_Schedule.Interfaces.DataAccess.Repositories
 {
@@ -7,13 +8,13 @@ namespace BSMU_Schedule.Interfaces.DataAccess.Repositories
         /// <summary>
         /// Returns value
         /// </summary>
-        T Get();
+        Task<T> Get();
 
         /// <summary>
         /// Saves value
         /// </summary>
         /// <param name="value">Value for saving</param>
-        T InsertOrUpdate(T value);
+        Task<T> InsertOrUpdate(T value);
 
         /// <summary>
         /// Commit all changes

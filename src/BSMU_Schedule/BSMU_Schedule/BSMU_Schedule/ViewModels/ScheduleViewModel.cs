@@ -2,11 +2,13 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using BSMU_Schedule.Commands;
 using BSMU_Schedule.Entities;
 using BSMU_Schedule.Enums;
+using BSMU_Schedule.Interfaces.DataAccess.Repositories;
 using BSMU_Schedule.Interfaces.Parameters;
 using BSMU_Schedule.Services.DataAccess;
 using BSMU_Schedule.Views;
@@ -16,6 +18,8 @@ namespace BSMU_Schedule.ViewModels
 {
     public class ScheduleViewModel: INotifyPropertyChanged
     {
+        private static string scheduleFile => "Schedule.xml";
+
         public WeekSchedule DaySchedules { get; set; }
 
         public DaySchedule CurrentDaySchedule { get; set; }
@@ -24,7 +28,11 @@ namespace BSMU_Schedule.ViewModels
 
         public ICommand OpenMenuPageCommand { get; }
 
-        public INavigation Navigation { get; set;}
+        public INavigation Navigation { get; set; }
+
+        public MenuPage MenuPage { get; set; }
+
+        public Schedule  Schedule { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,14 +43,33 @@ namespace BSMU_Schedule.ViewModels
             Navigation = navigation;
 
             Lessons = new ObservableCollection<Lesson>();
-            GroupNumber = 7301;
-            DaySchedules = RepositoriesBuilder
-                .GetRepository(new RepositoryConfigurations<Schedule>(StorageType.XmlFileStorageType))
-                .Get()
-                .WeekSchedules
-                .First();
+            Schedule = RepositoriesBuilder
+                .GetRepository(new RepositoryConfigurations<Schedule>(StorageType.XmlFileStorageType, scheduleFile))
+                .Get().Result;
+            if (Schedule != null)
+            {
+                DaySchedules = Schedule.WeekSchedules[4];
+                GroupNumber = Schedule.GroupNumber;
+            }
 
             ChangeCurrentDayOfWeek(DateTime.Now.DayOfWeek);
+            IsMenuButtonEnabled = true;
+        }
+
+        private bool _isMenuButtonEnabled;
+        public bool IsMenuButtonEnabled
+        {
+            get => _isMenuButtonEnabled;
+            set
+            {
+                if (_isMenuButtonEnabled == value)
+                {
+                    return;
+                }
+
+                _isMenuButtonEnabled = value;
+                OnPropertyChanged(nameof(IsMenuButtonEnabled));
+            }
         }
 
         private string _dayOfWeekRepresentation;
@@ -102,7 +129,13 @@ namespace BSMU_Schedule.ViewModels
         {
             DayOfWeekRepresentation = dayOfWeek.ToString("G");
 
-            if (!DaySchedules.DaySchedules.TryGetValue(dayOfWeek, out DaySchedule daySchedule))
+            if (DaySchedules?.DaySchedules == null)
+            {
+                return;
+            }
+
+            DaySchedule daySchedule;
+            if ((daySchedule = DaySchedules.DaySchedules.FirstOrDefault(d => d.DayOfWeek == dayOfWeek)) == null)
             {
                 Lessons.Clear();
                 return;
@@ -123,7 +156,29 @@ namespace BSMU_Schedule.ViewModels
 
         public async Task OpenMenuPage()
         {
-            await Navigation.PushModalAsync(new MenuPage());
+            IsMenuButtonEnabled = false;
+            if (MenuPage == null)
+            {
+                MenuPage = new MenuPage();
+                MenuPage.BindingContext = new MenuViewModel(Navigation, this, MenuPage);
+            }
+            await Navigation.PushModalAsync(MenuPage, false);
+            IsMenuButtonEnabled = true;
+        }
+
+        public async Task UpdateSchedule(Schedule schedule)
+        {
+            IRepository<Schedule> rep =
+                RepositoriesBuilder.GetRepository(
+                    new RepositoryConfigurations<Schedule>(StorageType.XmlFileStorageType, scheduleFile));
+
+            await rep.InsertOrUpdate(schedule);
+            rep.Commit();
+
+            Schedule = schedule;
+            DaySchedules = Schedule.WeekSchedules[4];
+            ChangeCurrentDayOfWeek(DateTime.Now.DayOfWeek);
+            GroupNumber = schedule.GroupNumber;
         }
     }
 }

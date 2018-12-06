@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace BSMU_Schedule.Interfaces
 {
@@ -7,13 +8,13 @@ namespace BSMU_Schedule.Interfaces
         /// <summary>
         /// Gets value
         /// </summary>
-        T Get();
+        Task<T> Get();
 
         /// <summary>
         /// Saves value
         /// </summary>
         /// <param name="value"></param>
-        T InsertOrUpdate(T value);
+        Task<T> InsertOrUpdate(T value);
 
         /// <summary>
         /// Commits changes

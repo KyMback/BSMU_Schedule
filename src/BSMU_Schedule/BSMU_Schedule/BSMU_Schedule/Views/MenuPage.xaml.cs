@@ -10,7 +10,6 @@ namespace BSMU_Schedule.Views
 		public MenuPage ()
 		{
 			InitializeComponent ();
-		    BindingContext = new MenuViewModel();
 		}
 	}
 }

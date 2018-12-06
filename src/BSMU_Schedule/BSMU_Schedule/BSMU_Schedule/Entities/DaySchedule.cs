@@ -4,16 +4,23 @@ using System.Text;
 
 namespace BSMU_Schedule.Entities
 {
+    [Serializable]
     public class DaySchedule
     {
-        public DaySchedule(DayOfWeek dayOfWeek, IEnumerable<Lesson> lessons)
+        public DaySchedule()
         {
-            DayOfWeek = dayOfWeek;
+        }
+
+        public DayOfWeek DayOfWeek => Date.DayOfWeek;
+
+        public DaySchedule(DateTime date, List<Lesson> lessons)
+        {
+            Date = date;
             Lessons = lessons;
         }
 
-        public DayOfWeek DayOfWeek { get; set; }
+        public DateTime Date { get; set; }
 
-        public IEnumerable<Lesson> Lessons { get; set; }
+        public List<Lesson> Lessons { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using BSMU_Schedule.Interfaces;
+﻿using System.Threading.Tasks;
+using BSMU_Schedule.Interfaces;
 using BSMU_Schedule.Interfaces.DataAccess.Repositories;
 using BSMU_Schedule.Interfaces.Parameters;
 
@@ -13,12 +14,12 @@ namespace BSMU_Schedule.Services.DataAccess.Repositories
             storageAdapter = StorageAdapterBuilder.BuildAdapter<T>(configurations.StorageType, configurations);
         }
 
-        public T Get()
+        public Task<T> Get()
         {
             return storageAdapter.Get();
         }
 
-        public T InsertOrUpdate(T value)
+        public Task<T> InsertOrUpdate(T value)
         {
             return storageAdapter.InsertOrUpdate(value);
         }
